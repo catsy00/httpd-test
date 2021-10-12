@@ -10,9 +10,10 @@ RUN sed -ri -e "/^Listen 80/c\Listen ${PORT}" /etc/httpd/conf/httpd.conf && \
     chown -R apache:apache /etc/httpd/logs/ && \
     chown -R apache:apache /run/httpd/
 
-USER apache
+RUN echo "TEST" >> /var/www/html/index.html && \
+    chown -R apache:apache /var/www/html/
 
-RUN echo "TEST" >> /var/www/html/index.html
+USER apache
 
 EXPOSE ${PORT}
 
