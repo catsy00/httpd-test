@@ -1,4 +1,4 @@
-FROM ubi8/ubi:8.3
+FROM registry.redhat.io/ubi8/ubi:8.3
 
 LABEL email=catsy@naver.com
 
