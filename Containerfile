@@ -12,6 +12,8 @@ RUN sed -ri -e "/^Listen 80/c\Listen ${PORT}" /etc/httpd/conf/httpd.conf && \
 
 USER apache
 
+RUN echo "TEST" >> /var/www/html/index.html
+
 EXPOSE ${PORT}
 
 CMD ["httpd","-D","FOREGROUND"]
