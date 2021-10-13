@@ -18,4 +18,4 @@ USER apache
 EXPOSE ${PORT}
 
 # CMD ["httpd","-D","FOREGROUND"]
-CMD ["while true; do echo "TEST"; done"]
+CMD ["while true; do echo \"TEST\"; done"]
