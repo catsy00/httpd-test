@@ -11,7 +11,7 @@ RUN   yum install -y --no-docs --disableplugin=subscription-manager httpd && \
       echo "Hello from the httpd-parent container!" > ${DOCROOT}/index.html
 
 RUN sed -i "s/Listen 80/Listen ${PORT}/g" /etc/httpd/conf/httpd.conf && \
-    sed -i "s/#ServerName www.example.com:80/ServerName 0.0.0.0:8080/g" /etc/httpd/conf/httpd.conf
+    sed -i "s/#ServerName www.example.com:80/ServerName 0.0.0.0:${PORT}/g" /etc/httpd/conf/httpd.conf
 
 # Allows child images to inject their own content into DocumentRoot
 ONBUILD COPY src/ ${DOCROOT}/ 
