@@ -6,7 +6,7 @@ MAINTAINER Red Hat Training <training@redhat.com>
 ENV DOCROOT=/var/www/html 
 ENV PORT 8080
 
-RUN   yum install -y --no-docs --disableplugin=subscription-manager httpd && \ 
+RUN   yum install -y --disableplugin=subscription-manager httpd && \ 
       yum clean all --disableplugin=subscription-manager -y && \
       echo "Hello from the httpd-parent container!" > ${DOCROOT}/index.html
 
