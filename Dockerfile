@@ -25,7 +25,7 @@ RUN chgrp -R 0 /var/log/httpd /var/run/httpd && \
     chmod -R g=u /var/log/httpd /var/run/httpd
 
 # Run as the 1001 user
-USER root 
+USER 1001
 
 # Launch httpd
 CMD /usr/sbin/httpd -D FOREGROUND
