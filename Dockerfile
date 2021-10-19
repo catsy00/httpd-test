@@ -1,22 +1,24 @@
-FROM registry.redhat.io/ubi8/ubi:8.3
+FROM registry.access.redhat.com/ubi8/ubi:latest
 
-LABEL email=catsy@naver.com
+MAINTAINER Red Hat Training <training@redhat.com>
 
-ENV PORT 8080
+# DocumentRoot for Apache
+ENV DOCROOT=/var/www/html 
 
-RUN yum install -y httpd && yum clean all
+RUN   yum install -y --no-docs --disableplugin=subscription-manager httpd && \ 
+      yum clean all --disableplugin=subscription-manager -y && \
+      echo "Hello from the httpd-parent container!" > ${DOCROOT}/index.html
 
-RUN sed -ri -e "/^Listen 80/c\Listen ${PORT}" /etc/httpd/conf/httpd.conf && \
-    sed -ri -e "/^#ServerName /c\ServerName localhost:${PORT}" /etc/httpd/conf/httpd.conf && \
-    sed -ri -e "/^User default/c\User apache" /etc/httpd/conf/httpd.conf && \
-    chown -R apache:apache /etc/httpd/logs/ && \
-    chown -R apache:apache /etc/httpd/ 
+# Allows child images to inject their own content into DocumentRoot
+ONBUILD COPY src/ ${DOCROOT}/ 
 
-# RUN rm -f /etc/httpd/run/httpd.pid
+EXPOSE 80
 
-USER apache
+# This stuff is needed to ensure a clean start
+RUN rm -rf /run/httpd && mkdir /run/httpd
 
-EXPOSE ${PORT}
+# Run as the root user
+USER root 
 
-CMD ["httpd","-D","FOREGROUND"]
-# CMD ["while true; do echo \"TEST\"; done"]
+# Launch httpd
+CMD /usr/sbin/httpd -DFOREGROUND
