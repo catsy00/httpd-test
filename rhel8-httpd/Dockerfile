@@ -1,4 +1,4 @@
-FROM registry.redhat.io/rhel8/rhel:latest
+FROM registry.redhat.io/rhel8/podman:latest
 
 LABEL email=catsy@naver.com
 
