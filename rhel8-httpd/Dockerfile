@@ -10,5 +10,5 @@ LABEL email=catsy@naver.com
 
 # EXPOSE ${PORT}
 
-CMD ["httpd","-D","FOREGROUND"]
-# CMD ["while true; do echo \"TEST\"; done"]
+# CMD ["httpd","-D","FOREGROUND"]
+ CMD ["/bin/bash","-c" "while true; do echo date ; done"]
